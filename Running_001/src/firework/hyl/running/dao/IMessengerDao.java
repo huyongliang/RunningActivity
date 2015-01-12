@@ -8,10 +8,10 @@ import firework.hyl.running.common.exception.DataAccessException;
 
 public interface IMessengerDao {
 	// 查找新邮件数量
-	Integer findNewMessageNum(String nickname) throws DataAccessException;
+	Long findNewMessageNum(String nickname) throws DataAccessException;
 
 	// 查找会员个数
-	Integer findMemberinfoNum() throws DataAccessException;
+	Long findMemberinfoNum() throws DataAccessException;
 
 	// 通过年龄，性别，城市查找朋友
 	List<Memberinfo> findFriends(Long age, String gender, String city)

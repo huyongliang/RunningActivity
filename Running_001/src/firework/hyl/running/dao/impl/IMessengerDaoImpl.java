@@ -24,22 +24,21 @@ public class IMessengerDaoImpl implements IMessengerDao {
 	}
 
 	@Override
-	public Integer findNewMessageNum(String nickname)
-			throws DataAccessException {
+	public Long findNewMessageNum(String nickname) throws DataAccessException {
 		Object result = this
 				.getSession()
 				.createQuery(
 						"select count (id) from Messagerecord  where receiver=? and status=0")
 				.setString(0, nickname).uniqueResult();
-		return result == null ? 0 : (Integer) result;
+		return result == null ? 0 : (Long) result;
 	}
 
 	@Override
-	public Integer findMemberinfoNum() throws DataAccessException {
+	public Long findMemberinfoNum() throws DataAccessException {
 		Object result = this.getSession()
 				.createQuery("select count (id) from Memberinfo")
 				.uniqueResult();
-		return result == null ? 0 : (Integer) result;
+		return result == null ? 0 : (Long) result;
 	}
 
 	@SuppressWarnings("unchecked")

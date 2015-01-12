@@ -37,6 +37,16 @@
 		<action name="checkAutoLogin" class="memberCheckAutoLoginAction">
 			<result name="success" type="redirectAction">member-login</result>
 		</action>
+
+
+		<action name="member-gotoSpace" class="memGoToSpaceAction">
+			<result name="goto_space">/member/space.jsp</result>
+			<result name="no_space">/member/noSpace.jsp</result>
+		</action>
+
+		<action name="member-createSpace" class="memCreateSpaceAction">
+			<result>/member/space.jsp</result>
+		</action>
 	</package>
 
 

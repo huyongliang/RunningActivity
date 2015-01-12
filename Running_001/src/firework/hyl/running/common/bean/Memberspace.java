@@ -34,30 +34,30 @@ public class Memberspace implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mem_sp_seq")
 	private Long id;
 	// 当前这个个人空间对应的用户
-	
+
 	@OneToOne
-	@JoinColumn(name="memberid")
+	@JoinColumn(name = "memberid")
 	private Memberinfo memberinfo;
 	// 个人对跑步的看法
-	@Column(length=200)
+	@Column(length = 200)
 	private String opinion;
 	// 跑步时间
-	@Column(length=20)
+	@Column(length = 20)
 	private String runtime;
 	// 跑步地点
-	@Column(length=20)
+	@Column(length = 20)
 	private String runplace;
 	// 喜欢的跑步明星
-	@Column(length=50)
+	@Column(length = 50)
 	private String runstar;
 	// 跑步的习惯
-	@Column(length=50)
+	@Column(length = 50)
 	private String runhabit;
 	// 正在使用的手机类型/号码
-	@Column(length=50)
+	@Column(length = 50)
 	private String cellphone;
 	// 个人空间中的头像路径
-	@Column(length=200)
+	@Column(length = 200)
 	private String icon;
 
 	// Constructors
@@ -152,6 +152,14 @@ public class Memberspace implements java.io.Serializable {
 
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+
+	@Override
+	public String toString() {
+		return "Memberspace [id=" + id + ", opinion=" + opinion + ", runtime="
+				+ runtime + ", runplace=" + runplace + ", runstar=" + runstar
+				+ ", runhabit=" + runhabit + ", cellphone=" + cellphone
+				+ ", icon=" + icon + "]";
 	}
 
 }

@@ -87,7 +87,7 @@ tfoot tr td {
 				</div>
 				<div id="mainnav">
 					<ul>
-						<li><a href="activity.html">首页</a></li>
+						<li><a href="member/activity.jsp">首页</a></li>
 						<li><a href="other/musicrun.html">音乐跑不停</a></li>
 						<li><a href="other/equip.html">跑步装备库</a></li>
 						<li><a href="other/guide.html">专业跑步指南</a></li>

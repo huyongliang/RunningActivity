@@ -59,6 +59,8 @@ public interface IMemberService {
 	// 判断是否有个人空间
 	Boolean isMemberspace(Long id) throws MemberServiceException;
 	
+	boolean haveMemberSpace(String nickName) throws MemberServiceException;
+	
 	// 转到好友
 	void moveToFriend(String selfName, String name_searching) throws MemberServiceException;
 	

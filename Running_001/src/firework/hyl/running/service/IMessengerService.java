@@ -8,7 +8,7 @@ import firework.hyl.running.common.exception.MessengerServiceException;
 
 public interface IMessengerService {
 	// 通过名字查找新邮件个数
-	Integer findNewMessageNum(String nickname) throws MessengerServiceException;
+	Long findNewMessageNum(String nickname) throws MessengerServiceException;
 	
 	// 查找一个用户
 	Memberinfo findOneMemberinfo() throws MessengerServiceException;

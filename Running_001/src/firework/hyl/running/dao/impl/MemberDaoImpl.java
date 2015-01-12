@@ -59,9 +59,9 @@ public class MemberDaoImpl implements IMemberDao {
 	public List<Memberinfo> findMemberinfoByNum(int number)
 			throws DataAccessException {
 		Query query = this.getSession().createQuery(
-				"from Memberinfo m order by c.point asc");
-		query.setMaxResults(4);
-		query.setFirstResult(2);
+				"from Memberinfo m order by m.point desc");
+		query.setMaxResults(number);
+		query.setFirstResult(0);
 
 		return query.list();
 	}
@@ -196,7 +196,6 @@ public class MemberDaoImpl implements IMemberDao {
 
 	@Override
 	public Memberspace findSpace(Long id) throws DataAccessException {
-
 		return (Memberspace) this.getSession().get(Memberspace.class, id);
 	}
 

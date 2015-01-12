@@ -24,14 +24,14 @@ public class IMessengerServiceImpl implements IMessengerService {
 
 	@Transactional
 	@Override
-	public Integer findNewMessageNum(String nickname)
+	public Long findNewMessageNum(String nickname)
 			throws MessengerServiceException {
 		try {
 			return this.dao.findNewMessageNum(nickname);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return 0l;
 	}
 
 	@Override

@@ -16,11 +16,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>杰普――跑步社区</title>
 <!--  
+-->
 <link rel="stylesheet" type="text/css" id="css" href="style/main.css" />
 <link rel="stylesheet" type="text/css" id="css" href="style/style1.css" />
 <link rel="stylesheet" type="text/css" id="css" href="style/style.css" />
 <script src="js/main.js" type="text/javascript"></script>
--->
 </head>
 <body>
 	<div id="btm">
@@ -137,7 +137,7 @@
 							</li>
 							<li>
 								<div>
-									<img src="images/d.gif" /> <a href="noSpace.html">个性空间</a>
+									<img src="images/d.gif" /> <a href="member/member-gotoSpace.action">个性空间</a>
 									<p>创建自己的个性空间</p>
 								</div>
 							</li>
@@ -178,16 +178,10 @@
 					</div>
 					<h2>积分排行榜</h2>
 					<ul>
-						<li><a href="#">Briup1</a></li>
-						<li><a href="#">Briup2</a></li>
-						<li><a href="#">Briup3</a></li>
-						<li><a href="#">Briup4</a></li>
-						<li><a href="#">Briup5</a></li>
-						<li><a href="#">Briup6</a></li>
-						<li><a href="#">Briup7</a></li>
-						<li><a href="#">Briup8</a></li>
-						<li><a href="#">Briup9</a></li>
-						<li><a href="#">Briup10</a></li>
+					<s:iterator value="top10Members">
+						<li><a href="#">${nickName}</a></li>
+					</s:iterator>
+						
 					</ul>
 				</div>
 				<div class="clear"></div>

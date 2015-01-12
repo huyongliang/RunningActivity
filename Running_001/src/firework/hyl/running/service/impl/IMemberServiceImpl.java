@@ -1,5 +1,6 @@
 package firework.hyl.running.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -95,11 +96,16 @@ public class IMemberServiceImpl implements IMemberService {
 
 	}
 
+	@Transactional
 	@Override
 	public List<Memberinfo> findMemberinfoByNum(int number)
 			throws MemberServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return this.dao.findMemberinfoByNum(number);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<>(0);
 	}
 
 	@Override
@@ -270,11 +276,18 @@ public class IMemberServiceImpl implements IMemberService {
 
 	}
 
+	@Transactional
 	@Override
 	public void saveSpace(Memberinfo memberinfo, Memberspace ms)
 			throws MemberServiceException {
-		// TODO Auto-generated method stub
-
+		try {
+			Memberinfo temp=this.dao.findMemberinfoByName(memberinfo.getNickName());
+			ms.setMemberinfo(temp);
+			temp.setMemberSpace(ms);
+			this.dao.saveOrUpdateMemberinfo(temp);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -308,5 +321,18 @@ public class IMemberServiceImpl implements IMemberService {
 		record.setReceivedate(new Date());
 		record.setPointaction(pointAction);
 		dao.saveOrUpdatePointrecord(record);
+	}
+
+	@Transactional
+	@Override
+	public boolean haveMemberSpace(String nickName)
+			throws MemberServiceException {
+		try {
+			return this.dao.findMemberinfoByName(nickName).getMemberSpace()!=null;
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 }

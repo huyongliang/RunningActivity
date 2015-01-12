@@ -36,10 +36,10 @@ public class Memberinfo implements java.io.Serializable {
 	@JoinColumn(name = "gradeid")
 	private Graderecord graderecord;
 	// 用户的个人空间
-	@OneToOne(mappedBy = "memberinfo"/* ,cascade={CascadeType.ALL} */)
+	@OneToOne(mappedBy = "memberinfo", cascade = { CascadeType.ALL })
 	private Memberspace memberSpace;
 	// 用户昵称
-	@Column(length = 20, nullable = false,unique=true)
+	@Column(length = 20, nullable = false, unique = true)
 	private String nickName;
 	// 密码
 	@Column(length = 50, nullable = false)
