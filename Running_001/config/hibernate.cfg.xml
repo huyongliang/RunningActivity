@@ -1,0 +1,34 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!--dddddd -->
+		<!-- 配置连接数据库的基本信息 -->
+		<!-- <property name="hibernate.connection.username">running</property> 
+			<property name="hibernate.connection.password">123</property> <property name="hibernate.connection.url">jdbc:oracle:thin:@127.0.0.1:1521:orcl</property> 
+			<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property> -->
+		<!--dddddd -->
+		<!-- -->
+
+
+		<property name="show_sql">true</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<!-- <property name="hibernate.current_session_context_class">thread</property> -->
+
+
+		<mapping class="firework.hyl.running.common.bean.Graderecord" />
+		<mapping class="firework.hyl.running.common.bean.Memberinfo" />
+		<mapping class="firework.hyl.running.common.bean.Memberspace" />
+
+		<mapping class="firework.hyl.running.common.bean.Pointaction" />
+		<mapping class="firework.hyl.running.common.bean.Pointrecord" />
+
+		<mapping class="firework.hyl.running.common.bean.Friendrecord" />
+		<mapping class="firework.hyl.running.common.bean.Blackrecord" />
+		<mapping class="firework.hyl.running.common.bean.Messagerecord" />
+	</session-factory>
+</hibernate-configuration>
