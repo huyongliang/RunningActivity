@@ -2,6 +2,7 @@ package firework.hyl.running.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,11 +54,16 @@ public class MemberDaoImpl implements IMemberDao {
 		this.getSession().saveOrUpdate(memberinfo);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Memberinfo> findMemberinfoByNum(int number)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = this.getSession().createQuery(
+				"from Memberinfo m order by c.point asc");
+		query.setMaxResults(4);
+		query.setFirstResult(2);
+
+		return query.list();
 	}
 
 	@Override
@@ -96,29 +102,31 @@ public class MemberDaoImpl implements IMemberDao {
 	@Override
 	public void saveOrUpdateFriend(Friendrecord friend)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		this.getSession().saveOrUpdate(friend);
 	}
 
 	@Override
 	public void saveOrUpdateFriend(Blackrecord friend)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		this.getSession().saveOrUpdate(friend);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Memberinfo> listFriend(String selfname)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getSession()
+				.createQuery("from Friendrecord f where f.selfname =?")
+				.setString(0, selfname).list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Memberinfo> listBlack(String selfname)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getSession()
+				.createQuery("from Blackrecord b where b.selfname=?")
+				.setString(0, selfname).list();
 	}
 
 	@Override
@@ -130,15 +138,17 @@ public class MemberDaoImpl implements IMemberDao {
 	@Override
 	public void deleleBlack(String selfName, String blackName)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		this.getSession()
+				.createQuery(
+						"delete Blackrecord b where b.selfname=? and b.blackname =?")
+				.setString(0, selfName).setString(1, blackName).executeUpdate();
 	}
 
 	@Override
 	public void deleleBlack(String selfName, String[] blackNames)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		for (String black : blackNames)
+			this.deleleBlack(selfName, black);
 	}
 
 	@Override
@@ -150,29 +160,38 @@ public class MemberDaoImpl implements IMemberDao {
 	@Override
 	public void deleleFriend(String selfName, String friendName)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		this.getSession()
+				.createQuery(
+						"delete Friendrecord f where f.selfname=? and f.friendname=?")
+				.setString(0, selfName).setString(1, friendName)
+				.executeUpdate();
 	}
 
 	@Override
 	public void deleleFriend(String selfName, String[] friendNames)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		for (String fn : friendNames)
+			this.deleleFriend(selfName, fn);
 	}
 
 	@Override
 	public Friendrecord findfriend(String selfName, String friendName)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		return (Friendrecord) this
+				.getSession()
+				.createQuery(
+						"from Friendrecord f where f.selfname=? and f.friendname=?")
+				.setString(0, selfName).setString(1, friendName).uniqueResult();
 	}
 
 	@Override
 	public Blackrecord findBlack(String selfName, String blackName)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		return (Blackrecord) this
+				.getSession()
+				.createQuery(
+						"from Blackrecord b where b.selfname=? and b.blackname=?")
+				.setString(0, selfName).setString(1, blackName).uniqueResult();
 	}
 
 	@Override

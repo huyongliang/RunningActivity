@@ -78,7 +78,7 @@ public class Memberinfo implements java.io.Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date registerdate;
 	// 最后一次登录时间
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date latestdate;
 	// 用户账户的状态 0:正常 1:注销/冻结
 	@Column(columnDefinition = "number default 0")

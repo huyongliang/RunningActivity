@@ -6,9 +6,12 @@
 	<session-factory>
 		<!--dddddd -->
 		<!-- 配置连接数据库的基本信息 -->
-		<!-- <property name="hibernate.connection.username">running</property> 
+		<!-- 
+		
+		<property name="hibernate.connection.username">running</property> 
 			<property name="hibernate.connection.password">123</property> <property name="hibernate.connection.url">jdbc:oracle:thin:@127.0.0.1:1521:orcl</property> 
-			<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property> -->
+			<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property> 
+		-->
 		<!--dddddd -->
 		<!-- -->
 

@@ -21,13 +21,21 @@
 			<result name="error">/passwd_missing.jsp</result>
 		</action>
 
-		<action name="member-login" class="memberLoginAction">
+		<action name="after-login" class="memberAfterLoginAction">
 			<result name="success">/member/activity.jsp</result>
+		</action>
+
+		<action name="member-login" class="memberLoginAction">
+			<result name="success" type="redirectAction">after-login</result>
 			<result name="error">/login.jsp</result>
 		</action>
 
 		<action name="member-modify-person-info" class="memberModifyPersonInfoAction">
 			<result>/member/modify.jsp</result>
+		</action>
+
+		<action name="checkAutoLogin" class="memberCheckAutoLoginAction">
+			<result name="success" type="redirectAction">member-login</result>
 		</action>
 	</package>
 

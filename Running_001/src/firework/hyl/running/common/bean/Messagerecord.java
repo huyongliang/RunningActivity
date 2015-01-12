@@ -38,7 +38,7 @@ public class Messagerecord implements java.io.Serializable {
 	@Column(length=20,nullable=false)
 	private String receiver;
 	// 发送时间
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false)
 	private Date senddate;
 	// 信息主题

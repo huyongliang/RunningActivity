@@ -42,7 +42,7 @@ public class Pointrecord implements java.io.Serializable {
 	@Column(length = 20, nullable = false)
 	private String nickname;
 	// 完成的时间点
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
 	private Date receivedate;
 

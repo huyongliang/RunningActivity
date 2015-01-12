@@ -16,6 +16,7 @@ import firework.hyl.running.common.bean.Pointaction;
 import firework.hyl.running.common.bean.Pointrecord;
 import firework.hyl.running.common.exception.DataAccessException;
 import firework.hyl.running.common.exception.MemberServiceException;
+import firework.hyl.running.common.util.DateUtil;
 import firework.hyl.running.dao.IMemberDao;
 import firework.hyl.running.service.IMemberService;
 
@@ -65,14 +66,27 @@ public class IMemberServiceImpl implements IMemberService {
 	@Override
 	public Memberinfo login(String username, String passwd)
 			throws MemberServiceException {
+		Memberinfo ret=null;
 		try {
-			Memberinfo ret = this.dao.findMemberinfoByName(username);
-			if (ret != null && ret.getPasswd().equals(passwd))
-				return ret;
+			ret = this.dao.findMemberinfoByName(username);
+			if (ret == null) {
+				throw new MemberServiceException("用户不存在");
+			}
+			if (!ret.getPasswd().equals(passwd))
+				throw new MemberServiceException("密码不正确");
+			// 不是同一天登陆多次
+			if (!DateUtil.isSameDay(new Date(), ret.getLatestdate())) {
+				this.addPoint("LOGIN", ret, dao);
+			}
+			ret.setLatestdate(new Date());
+			ret.setIsonline(1L);
+			this.dao.saveOrUpdateMemberinfo(ret);
 		} catch (DataAccessException e) {
 			throw new MemberServiceException(e.getMessage());
+		} catch (Exception e) {
+			throw new MemberServiceException(e.getMessage());
 		}
-		return null;
+		return ret;
 	}
 
 	@Override
@@ -129,7 +143,7 @@ public class IMemberServiceImpl implements IMemberService {
 				throw new MemberServiceException("用户不存在");
 			if (temp.getPasswd().equals(oldPasswd)) {
 				temp.setAddress(memberinfo.getAddress());
-//				temp.setAge(memberinfo.getAge());
+				// temp.setAge(memberinfo.getAge());
 				temp.setEmail(memberinfo.getEmail());
 				temp.setGender(memberinfo.getGender());
 				temp.setPasswd(oldPasswd);

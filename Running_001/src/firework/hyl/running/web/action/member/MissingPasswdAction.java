@@ -1,4 +1,4 @@
-package firework.hyl.running.web.action;
+package firework.hyl.running.web.action.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

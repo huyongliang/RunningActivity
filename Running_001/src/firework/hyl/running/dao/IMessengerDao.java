@@ -2,6 +2,7 @@ package firework.hyl.running.dao;
 
 import java.util.List;
 
+import firework.hyl.running.common.bean.Memberinfo;
 import firework.hyl.running.common.bean.Messagerecord;
 import firework.hyl.running.common.exception.DataAccessException;
 
@@ -13,7 +14,7 @@ public interface IMessengerDao {
 	Integer findMemberinfoNum() throws DataAccessException;
 
 	// 通过年龄，性别，城市查找朋友
-	List findFriends(String age, String gender, String city)
+	List<Memberinfo> findFriends(Long age, String gender, String city)
 			throws DataAccessException;
 
 	// 保存短信

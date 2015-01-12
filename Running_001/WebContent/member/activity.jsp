@@ -15,11 +15,11 @@
 <base href="<%=basePath%>"></base>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>杰普――跑步社区</title>
+<!--  
 <link rel="stylesheet" type="text/css" id="css" href="style/main.css" />
 <link rel="stylesheet" type="text/css" id="css" href="style/style1.css" />
 <link rel="stylesheet" type="text/css" id="css" href="style/style.css" />
 <script src="js/main.js" type="text/javascript"></script>
-<!--  
 -->
 </head>
 <body>
@@ -55,8 +55,8 @@
 									</font> </a>&nbsp;
 								</td>
 								<td align="left">当前您的积米：&nbsp;&nbsp; <font color="red">${sessionScope.current_user.point}
-								</font>&nbsp;&nbsp; 当前等级： <font color="red"><s:property value="#session.current_user.graderecord.gradename"/>
-								</font>
+								</font>&nbsp;&nbsp; 当前等级： <font color="red"><s:property
+											value="#session.current_user.graderecord.gradename" /> </font>
 								</td>
 							</tr>
 						</table> </span>
@@ -125,15 +125,13 @@
 							</li>
 							<li>
 								<div>
-									<img src="images/b.gif" /> <a
-										href="messenger/inbox.html">我的信箱</a>
+									<img src="images/b.gif" /> <a href="messenger/inbox.html">我的信箱</a>
 									<p>写信息、收件箱、发件箱</p>
 								</div>
 							</li>
 							<li>
 								<div>
-									<img src="images/c.gif" /> <a
-										href="messenger/buddyList.html">我的好友</a>
+									<img src="images/c.gif" /> <a href="messenger/buddyList.html">我的好友</a>
 									<p>好友管理及黑名单</p>
 								</div>
 							</li>
