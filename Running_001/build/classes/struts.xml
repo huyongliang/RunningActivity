@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.action.extension" value="action"></constant>
+	<constant name="struts.devMode" value="false"></constant>
+
+	<package name="member" namespace="/member" extends="struts-default">
+
+		<action name="member-register" class="memberRegisterAction">
+			<result name="success">/login.jsp</result>
+			<result name="error">/register.jsp</result>
+		</action>
+
+		<action name="member-backPWD" class="missingPasswdAction">
+			<result name="success">/passwd_missing.jsp</result>
+			<result name="error">/passwd_missing.jsp</result>
+		</action>
+
+		<action name="member-login" class="memberLoginAction">
+			<result name="success">/member/activity.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+
+		<action name="member-modify-person-info" class="memberModifyPersonInfoAction">
+			<result>/member/modify.jsp</result>
+		</action>
+	</package>
+
+
+</struts>
