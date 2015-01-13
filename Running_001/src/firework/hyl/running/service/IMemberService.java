@@ -27,7 +27,7 @@ public interface IMemberService {
 	List<Memberinfo> findMemberinfoByNum(int number) throws MemberServiceException;
 	
 	// 查找在线用户
-	int findMemberinfoOnline() throws MemberServiceException;
+	Long findMemberinfoOnline() throws MemberServiceException;
 	
 	// 按照积分查找等级
 	Graderecord findMemberinfoLevel(Long point) throws MemberServiceException;

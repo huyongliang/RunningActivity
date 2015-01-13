@@ -85,19 +85,12 @@ tfoot tr td {
 				<div id="logout">
 					<a href="login.html">注 销</a> | 收 藏
 				</div>
-				<div id="mainnav">
-					<ul>
-						<li><a href="member/activity.jsp">首页</a></li>
-						<li><a href="other/musicrun.html">音乐跑不停</a></li>
-						<li><a href="other/equip.html">跑步装备库</a></li>
-						<li><a href="other/guide.html">专业跑步指南</a></li>
-						<li><a href="other/bbs.html">跑步论坛</a></li>
-
-					</ul>
-					<span></span>
-				</div>
+				<jsp:include page="member-header-menu.jsp" flush="true"></jsp:include>
 			</div>
-
+			<script type="text/javascript">
+				if ("${msg}" != null && "${msg}" != "")
+					alert("${msg}");
+			</script>
 			<div id="content" align="center">
 
 				<div id="center">
@@ -180,7 +173,8 @@ tfoot tr td {
 													</div>
 												</th>
 												<td><input type="text" maxLength="30"
-													style="width: 200px" name="memberinfo.email" /></td>
+													style="width: 200px" name="memberinfo.email"
+													value="${sessionScope.current_user.email}" /></td>
 												<th><font color="#ff0000">请输入您常用的其它电子邮箱</font></th>
 											</tr>
 											<tr>
@@ -190,7 +184,8 @@ tfoot tr td {
 													</div>
 												</th>
 												<th><input style="width: 200px" type="text"
-													name="memberinfo.passwdQuestion" /></th>
+													name="memberinfo.passwdQuestion"
+													value="${sessionScope.current_user.passwdQuestion}" /></th>
 												<th><font color="#ff0000">例如：我的哥哥是谁？</font></th>
 											</tr>
 											<tr>
@@ -200,7 +195,8 @@ tfoot tr td {
 													</div>
 												</th>
 												<td><input type="text" style="width: 200px"
-													name="memberinfo.passwdAnswer" /></td>
+													name="memberinfo.passwdAnswer"
+													value="${sessionScope.current_user.passwdAnswer}" /></td>
 												<th><font color="#ff0000">注意：密码提示问题答案长度不少于6位</font></th>
 											</tr>
 											<tr>
@@ -211,7 +207,7 @@ tfoot tr td {
 												</th>
 												<td><input type="radio" value="0"
 													name="memberinfo.gender" checked="checked" />男 <input
-													type="radio" value="1" name="gender" />女</td>
+													type="radio" value="1" name="memberinfo.gender" />女</td>
 												<th>&nbsp;</th>
 											</tr>
 											<tr>
@@ -219,7 +215,7 @@ tfoot tr td {
 													<div align="right">所在省份/城市：</div>
 												</th>
 												<td><select name="memberinfo.provinceCity">
-														<option value="0" selected>请选择</option>
+														<option value="0" selected="selected">请选择</option>
 														<option value="1">北京</option>
 														<option value="2">上海</option>
 														<option value="3">天津</option>
@@ -255,14 +251,15 @@ tfoot tr td {
 														<option value="33">海外</option>
 														<option value="34">其它</option>
 												</select></td>
-												<th>&nbsp;</th>
+												<th>${sessionScope.current_user.provinceCity}</th>
 											</tr>
 											<tr>
 												<th class="line1">
 													<div align="right">联系电话：</div>
 												</th>
 												<td><input type="text" style="width: 200px"
-													name="memberinfo.phone" /></td>
+													name="memberinfo.phone"
+													value="${sessionScope.current_user.phone}" /></td>
 												<th><font color=#ff0000>请输入区号和真实的电话，以便我们与您联系</font></th>
 											</tr>
 											<tr>
@@ -270,7 +267,8 @@ tfoot tr td {
 													<div align="right">详细地址：</div>
 												</th>
 												<td><input type="text" style="width: 200px"
-													name="memberinfo.address" /></td>
+													name="memberinfo.address"
+													value="${sessionScope.current_user.address}" /></td>
 												<th>&nbsp;</th>
 											</tr>
 										<tfoot>
@@ -286,35 +284,9 @@ tfoot tr td {
 						</tr>
 					</table>
 					<BR /> <BR />
-					<div id="hots">
-						<h2>我的地盘</h2>
-						<ul>
-							<li>
-								<div>
-									<img src="images/a.gif" /> <a href="modify.html">基本信息</a>
-									<p>可修改自己的基本信息</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<img src="images/b.gif" /> <a href="messenger/inbox.html">我的信箱</a>
-									<p>写信息、收件箱、发件箱</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<img src="images/c.gif" /> <a href="messenger/buddyList.html">我的好友</a>
-									<p>好友管理及黑名单</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<img src="images/d.gif" /> <a href="noSpace.html">个性空间</a>
-									<p>创建自己的个性空间</p>
-								</div>
-							</li>
-						</ul>
-					</div>
+					<!--  -->
+					<jsp:include page="member-footer-menu.jsp" flush="true"></jsp:include>
+					<!--  -->
 
 				</div>
 

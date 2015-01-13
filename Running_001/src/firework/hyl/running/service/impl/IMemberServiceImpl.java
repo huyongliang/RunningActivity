@@ -67,7 +67,7 @@ public class IMemberServiceImpl implements IMemberService {
 	@Override
 	public Memberinfo login(String username, String passwd)
 			throws MemberServiceException {
-		Memberinfo ret=null;
+		Memberinfo ret = null;
 		try {
 			ret = this.dao.findMemberinfoByName(username);
 			if (ret == null) {
@@ -108,10 +108,16 @@ public class IMemberServiceImpl implements IMemberService {
 		return new ArrayList<>(0);
 	}
 
+	@Transactional
 	@Override
-	public int findMemberinfoOnline() throws MemberServiceException {
-		// TODO Auto-generated method stub
-		return 0;
+	public Long findMemberinfoOnline() throws MemberServiceException {
+
+		try {
+			return this.dao.findMemberinfoOnline();
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		return 1l;
 	}
 
 	@Override
@@ -165,7 +171,7 @@ public class IMemberServiceImpl implements IMemberService {
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return memberinfo;
 	}
 
 	@Override
@@ -281,7 +287,8 @@ public class IMemberServiceImpl implements IMemberService {
 	public void saveSpace(Memberinfo memberinfo, Memberspace ms)
 			throws MemberServiceException {
 		try {
-			Memberinfo temp=this.dao.findMemberinfoByName(memberinfo.getNickName());
+			Memberinfo temp = this.dao.findMemberinfoByName(memberinfo
+					.getNickName());
 			ms.setMemberinfo(temp);
 			temp.setMemberSpace(ms);
 			this.dao.saveOrUpdateMemberinfo(temp);
@@ -328,11 +335,11 @@ public class IMemberServiceImpl implements IMemberService {
 	public boolean haveMemberSpace(String nickName)
 			throws MemberServiceException {
 		try {
-			return this.dao.findMemberinfoByName(nickName).getMemberSpace()!=null;
+			return this.dao.findMemberinfoByName(nickName).getMemberSpace() != null;
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
-		
+
 		return false;
 	}
 }

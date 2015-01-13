@@ -36,7 +36,7 @@
 				</div>
 				<div id="mainnav">
 					<ul>
-						<li class="current"><a href="#">首页</a></li>
+						<li class="current"><a href="member/activity.jsp">首页</a></li>
 						<li><a href="other/musicrun.html">音乐跑不停</a></li>
 						<li><a href="other/equip.html">跑步装备库</a></li>
 						<li><a href="other/guide.html">专业跑步指南</a></li>
@@ -114,35 +114,7 @@
 						<div class="clear"></div>
 					</div>
 
-					<div id="hots">
-						<h2>我的地盘</h2>
-						<ul>
-							<li>
-								<div>
-									<img src="images/a.gif" /> <a href="member/modify.jsp">基本信息</a>
-									<p>可修改自己的基本信息</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<img src="images/b.gif" /> <a href="messenger/inbox.html">我的信箱</a>
-									<p>写信息、收件箱、发件箱</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<img src="images/c.gif" /> <a href="messenger/buddyList.html">我的好友</a>
-									<p>好友管理及黑名单</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<img src="images/d.gif" /> <a href="member/member-gotoSpace.action">个性空间</a>
-									<p>创建自己的个性空间</p>
-								</div>
-							</li>
-						</ul>
-					</div>
+					<jsp:include page="member-footer-menu.jsp" flush="true"></jsp:include>
 
 				</div>
 

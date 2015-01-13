@@ -26,6 +26,21 @@ public class MemberModifyPersonInfoAction extends ActionSupport implements
 	private String newPasswd;
 	private String msg;
 
+	@Override
+	public String execute() throws Exception {
+		try {
+			System.out.println("mem:" + this.memberinfo);
+			this.memberinfo.setPasswd(oldPasswd);
+			Memberinfo temp = this.service.saveOrUpDate(memberinfo, oldPasswd);
+			this.session.put(GloobalProperties.CURRENT_USER, temp);
+		} catch (MemberServiceException e) {
+			this.msg = e.getMessage();
+			return ERROR;
+		}
+		msg="修改成功";
+		return SUCCESS;
+	}
+
 	public String getMsg() {
 		return msg;
 	}
@@ -48,20 +63,6 @@ public class MemberModifyPersonInfoAction extends ActionSupport implements
 
 	@Autowired
 	private IMemberService service;
-
-	@Override
-	public String execute() throws Exception {
-		try {
-			System.out.println("mem:" + this.memberinfo);
-			this.memberinfo.setPasswd(oldPasswd);
-			Memberinfo temp = this.service.saveOrUpDate(memberinfo, oldPasswd);
-			this.session.put(GloobalProperties.CURRENT_USER, temp);
-		} catch (MemberServiceException e) {
-			this.msg = e.getMessage();
-			return ERROR;
-		}
-		return SUCCESS;
-	}
 
 	@Override
 	public void setSession(Map<String, Object> arg0) {

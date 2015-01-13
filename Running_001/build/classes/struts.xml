@@ -32,6 +32,7 @@
 
 		<action name="member-modify-person-info" class="memberModifyPersonInfoAction">
 			<result>/member/modify.jsp</result>
+			<result name="error">/member/modify.jsp</result>
 		</action>
 
 		<action name="checkAutoLogin" class="memberCheckAutoLoginAction">

@@ -84,17 +84,7 @@ tfoot tr td {
 				<div id="logout">
 					<a href="login.html">注 销</a> | 收 藏
 				</div>
-				<div id="mainnav">
-					<ul>
-						<li><a href="member/activity.jsp">首页</a></li>
-						<li><a href="other/musicrun.html">音乐跑不停</a></li>
-						<li><a href="other/equip.html">跑步装备库</a></li>
-						<li><a href="other/guide.html">专业跑步指南</a></li>
-						<li><a href="other/bbs.html">跑步论坛</a></li>
-
-					</ul>
-					<span></span>
-				</div>
+				<jsp:include page="member-header-menu.jsp" flush="true"></jsp:include>
 			</div>
 
 			<div id="content" align="center">
@@ -114,7 +104,8 @@ tfoot tr td {
 										<tbody>
 											<tr>
 												<td rowspan="5" width="30%" class="line4"><img
-													src="images/face4.gif" alt=Face width="84" height="84"></td>
+													src="GetImgServlet?imgPath=${sessionScope.current_user.memberSpace.icon}"
+													alt=Face width="84" height="84"></td>
 												<th width="25%" class="line1">昵称</th>
 												<td width="45%">${sessionScope.current_user.nickName}</td>
 											</tr>
@@ -138,8 +129,7 @@ tfoot tr td {
 											<tr>
 												<th class="line1">跑步习惯与主张</th>
 												<td colspan="2" height="90"><span>&nbsp;&nbsp;&nbsp;
-														清晨，喜欢一个人在操场上跑步，最喜欢体育明星是刘翔。 愿意成为我的跑友者请与我(13900000000)联系。
-														本人对跑步的主张是：生命在于运动！ </span></td>
+														${sessionScope.current_user.memberSpace.opinion} </span></td>
 											</tr>
 										</tbody>
 										<tfoot>
@@ -159,35 +149,7 @@ tfoot tr td {
 						</table>
 					</form>
 
-					<div id="hots">
-						<h2>我的地盘</h2>
-						<ul>
-							<li>
-								<div>
-									<img src="images/a.gif" /> <a href="modify.html">基本信息</a>
-									<p>可修改自己的基本信息</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<img src="images/b.gif" /> <a href="messenger/inbox.html">我的信箱</a>
-									<p>写信息、收件箱、发件箱</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<img src="images/c.gif" /> <a href="messenger/buddyList.html">我的好友</a>
-									<p>好友管理及黑名单</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<img src="images/d.gif" /> <a href="space.html">个性空间</a>
-									<p>创建自己的个性空间</p>
-								</div>
-							</li>
-						</ul>
-					</div>
+					<jsp:include page="member-footer-menu.jsp" flush="true"></jsp:include>
 
 				</div>
 				<div id="right">
