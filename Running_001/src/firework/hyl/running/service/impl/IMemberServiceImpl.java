@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import firework.hyl.running.common.bean.Blackrecord;
 import firework.hyl.running.common.bean.Friendrecord;
 import firework.hyl.running.common.bean.Graderecord;
 import firework.hyl.running.common.bean.Memberinfo;
@@ -101,7 +102,8 @@ public class IMemberServiceImpl implements IMemberService {
 	public List<Memberinfo> findMemberinfoByNum(int number)
 			throws MemberServiceException {
 		try {
-			return this.dao.findMemberinfoByNum(number);
+			return this.dao.findNMemberRandom(number);
+			// return this.dao.findMemberinfoByNum(number);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
@@ -181,32 +183,86 @@ public class IMemberServiceImpl implements IMemberService {
 
 	}
 
+	@Transactional
 	@Override
 	public void saveOrUpdate(String selfname, String friendname)
 			throws MemberServiceException {
-		// TODO Auto-generated method stub
-
+		try {
+			Memberinfo friend = this.dao.findMemberinfoByName(friendname);
+			if (friend == null)
+				throw new MemberServiceException("该用户不存在");
+			Blackrecord f = this.dao.findBlack(selfname, friendname);
+			if (f != null)
+				throw new MemberServiceException("【" + friendname + "】在你的黑名单中");
+			Friendrecord friendrecord = this.dao.findfriend(selfname,
+					friendname);
+			if (friendrecord != null)
+				throw new MemberServiceException("用户【"
+						+ friendrecord.getFriendname() + "】已经是你的好友");
+			Friendrecord friendrecord2 = new Friendrecord(selfname, friendname);
+			this.dao.saveOrUpdateFriend(friendrecord2);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
+	@Transactional
 	@Override
 	public List<Memberinfo> listFriend(String selfname)
 			throws MemberServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Memberinfo> list = null;
+		try {
+			list = this.dao.listFriend(selfname);
+		} catch (DataAccessException e) {
+			throw new MemberServiceException(e.getMessage());
+		}
+		return list;
 	}
 
+	@Transactional
 	@Override
 	public void moveToBlack(String selfname, String blackname)
 			throws MemberServiceException {
-		// TODO Auto-generated method stub
-
+		try {
+			this.dao.deleleFriend(selfname, blackname);
+			Blackrecord blackrecord = this.dao.findBlack(selfname, blackname);
+			if (blackrecord != null)
+				throw new MemberServiceException("【" + blackname + "】已经在黑名单中");
+			blackrecord = new Blackrecord(selfname, blackname);
+			this.dao.saveOrUpdateFriend(blackrecord);
+		} catch (DataAccessException e) {
+			throw new MemberServiceException("稍后重试");
+		}
 	}
 
+	@Transactional
+	@Override
+	public void moveToFriend(String selfName, String name_searching)
+			throws MemberServiceException {
+		try {
+			this.dao.deleleBlack(selfName, name_searching);
+
+			Friendrecord friendrecord = this.dao.findfriend(selfName,
+					name_searching);
+			if (friendrecord != null)
+				throw new MemberServiceException("【" + name_searching
+						+ "】已经在好友列表中");
+			friendrecord = new Friendrecord(selfName, name_searching);
+			this.dao.saveOrUpdateFriend(friendrecord);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Transactional
 	@Override
 	public List<Memberinfo> listBlack(String selfname)
 			throws MemberServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return this.dao.listBlack(selfname);
+		} catch (DataAccessException e) {
+			throw new MemberServiceException("稍后重试");
+		}
 	}
 
 	@Override
@@ -221,39 +277,51 @@ public class IMemberServiceImpl implements IMemberService {
 		return null;
 	}
 
-	@Override
-	public void moveToFriend(String selfName, String name_searching)
-			throws MemberServiceException {
-		// TODO Auto-generated method stub
-
-	}
-
+	@Transactional
 	@Override
 	public void deleleBlack(String selfName, String blackName)
 			throws MemberServiceException {
-		// TODO Auto-generated method stub
-
+		try {
+			this.dao.deleleBlack(selfName, blackName);
+		} catch (DataAccessException e) {
+			throw new MemberServiceException(e.getMessage());
+		}
 	}
 
+	@Transactional
 	@Override
 	public void deleleBlack(String selfName, String[] blackNames)
 			throws MemberServiceException {
-		// TODO Auto-generated method stub
-
+		try {
+			this.dao.deleleBlack(selfName, blackNames);
+		} catch (DataAccessException e) {
+			throw new MemberServiceException(e.getMessage());
+		}
 	}
 
+	@Transactional
 	@Override
 	public void deleleFriend(String selfName, String friendName)
 			throws MemberServiceException {
-		// TODO Auto-generated method stub
+		try {
+			this.dao.deleleFriend(selfName, friendName);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			throw new MemberServiceException(e.getMessage());
+		}
 
 	}
 
+	@Transactional
 	@Override
 	public void deleleFriend(String selfName, String[] friendNames)
 			throws MemberServiceException {
-		// TODO Auto-generated method stub
-
+		try {
+			this.dao.deleleFriend(selfName, friendNames);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			throw new MemberServiceException(e.getMessage());
+		}
 	}
 
 	@Override

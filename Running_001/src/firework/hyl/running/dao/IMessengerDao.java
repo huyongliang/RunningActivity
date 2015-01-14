@@ -14,7 +14,7 @@ public interface IMessengerDao {
 	Long findMemberinfoNum() throws DataAccessException;
 
 	// 通过年龄，性别，城市查找朋友
-	List<Memberinfo> findFriends(Long age, String gender, String city)
+	List<Memberinfo> findFriends(String age, String gender, String city)
 			throws DataAccessException;
 
 	// 保存短信

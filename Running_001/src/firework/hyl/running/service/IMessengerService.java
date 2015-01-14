@@ -14,7 +14,7 @@ public interface IMessengerService {
 	Memberinfo findOneMemberinfo() throws MessengerServiceException;
 	
 	// 通过年龄，性别，城市查找好友
-	List<Memberinfo> findFriends(Long age, String gender, String city) throws MessengerServiceException;
+	List<Memberinfo> findFriends(String age, String gender, String city) throws MessengerServiceException;
 	
 	// 保存短信
 	void saveMessage(Messagerecord message) throws MessengerServiceException;

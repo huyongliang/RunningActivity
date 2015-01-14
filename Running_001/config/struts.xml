@@ -50,5 +50,41 @@
 		</action>
 	</package>
 
+	<package name="messenger" namespace="/messenger" extends="struts-default">
+		<action name="msg-listAll" class="msgListAllAction">
+			<result>/messenger/buddyList.jsp</result>
+			<result name="error">/messenger/buddyList.jsp</result>
+		</action>
+
+		<action name="friend-match-random" class="friendMatchAction">
+			<result>/messenger/matchFriend.jsp</result>
+			<result name="error">/messenger/matchFriend.jsp</result>
+		</action>
+
+		<action name="add-friend" class="addFriendAction">
+			<result name="success" type="redirectAction">msg-listAll</result>
+			<result name="error">/messenger/matchFriend.jsp</result>
+		</action>
+
+		<action name="deleteBuddy" class="deleteBuddyAction">
+			<result name="success" type="redirectAction">msg-listAll</result>
+			<result name="error">/messenger/buddyList.jsp</result>
+		</action>
+
+		<action name="list-all-black" class="listAllBlackAction">
+			<result>/messenger/blackList.jsp</result>
+			<result name="error">/messenger/blackList.jsp</result>
+		</action>
+
+		<action name="moveToBlackList" class="moveToBlackListAction">
+			<result name="success" type="redirectAction">list-all-black</result>
+			<result name="error">/messenger/buddyList.jsp</result>
+		</action>
+		
+		<action name="moveToFriendList" class="moveToFriendListAction">
+			<result name="success" type="redirectAction">msg-listAll</result>
+			<result name="error">/messenger/blackList.jsp</result>
+		</action>
+	</package>
 
 </struts>

@@ -42,14 +42,26 @@ public class IMessengerServiceImpl implements IMessengerService {
 
 	@Transactional
 	@Override
-	public List<Memberinfo> findFriends(Long age, String gender, String city)
+	public List<Memberinfo> findFriends(String age, String gender, String city)
 			throws MessengerServiceException {
-		try {
-			return this.dao.findFriends(age, gender, city);
-		} catch (DataAccessException e) {
-			e.printStackTrace();
+		String c = city;
+		String a = age;
+		String g = gender;
+		if ("unlimited".equals(city)) {
+			c = null;
 		}
-		return new ArrayList<>();
+		if ("unlimited".equals(age))
+			a = null;
+		if ("unlimited".equals(gender))
+			g = null;
+		try {
+			System.out.println(c+"-->"+city);
+			System.out.println(a+"-->"+age);
+			System.out.println(g+"-->"+gender);
+			return this.dao.findFriends(a, g, c);
+		} catch (DataAccessException e) {
+			throw new MessengerServiceException(e.getMessage());
+		}
 	}
 
 	@Transactional

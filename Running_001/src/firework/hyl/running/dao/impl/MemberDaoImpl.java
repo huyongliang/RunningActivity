@@ -1,6 +1,8 @@
 package firework.hyl.running.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -115,18 +117,38 @@ public class MemberDaoImpl implements IMemberDao {
 	@Override
 	public List<Memberinfo> listFriend(String selfname)
 			throws DataAccessException {
-		return this.getSession()
+		List<Friendrecord> rec = this.getSession()
 				.createQuery("from Friendrecord f where f.selfname =?")
 				.setString(0, selfname).list();
+		if(rec==null||rec.size()==0)
+			return new ArrayList<>(0);
+		StringBuilder hql = new StringBuilder(
+				"from Memberinfo m where m.nickName in (");
+		for (Friendrecord f : rec)
+			hql.append("'").append(f.getFriendname()).append("'").append(",");
+		hql.deleteCharAt(hql.length() - 1);
+		hql.append(")");
+		return this.getSession().createQuery(hql.toString()).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Memberinfo> listBlack(String selfname)
 			throws DataAccessException {
-		return this.getSession()
-				.createQuery("from Blackrecord b where b.selfname=?")
+		List<Blackrecord> rec = this.getSession()
+				.createQuery("from Blackrecord f where f.selfname =?")
 				.setString(0, selfname).list();
+		System.out.println("size:"+rec.size());
+		if(rec==null||rec.size()==0){
+			return new ArrayList<>(0);
+		}
+		StringBuilder hql = new StringBuilder(
+				"from Memberinfo m where m.nickName in (");
+		for (Blackrecord f : rec)
+			hql.append("'").append(f.getBlackname()).append("'").append(",");
+		hql.deleteCharAt(hql.length() - 1);
+		hql.append(")");
+		return this.getSession().createQuery(hql.toString()).list();
 	}
 
 	@Override
@@ -205,8 +227,7 @@ public class MemberDaoImpl implements IMemberDao {
 	}
 
 	@Override
-	public Memberinfo findFriendRandom() throws DataAccessException {
-		// TODO Auto-generated method stub
+	public Memberinfo findFriendRandom(int number) throws DataAccessException {
 		return null;
 	}
 
@@ -216,4 +237,17 @@ public class MemberDaoImpl implements IMemberDao {
 		return this.getSession().createQuery("from Memberinfo").list();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Memberinfo> findNMemberRandom(int memCount)
+			throws DataAccessException {
+
+		List<Memberinfo> ret = null;
+		String sql = "select * from (select * from memberinfo order by dbms_random.value) where rownum<="
+				+ memCount;
+		ret = this.getSession().createSQLQuery(sql).addEntity(Memberinfo.class)
+				.list();
+
+		return ret;
+	}
 }

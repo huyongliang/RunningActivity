@@ -12,6 +12,15 @@ import firework.hyl.running.common.bean.Pointrecord;
 import firework.hyl.running.common.exception.DataAccessException;
 
 public interface IMemberDao {
+
+	/**
+	 * 随机查找 memCount 条记录
+	 * 
+	 * @param memCount
+	 * @return
+	 */
+	List<Memberinfo> findNMemberRandom(int memCount) throws DataAccessException;
+
 	// 按姓名查找用户
 	Memberinfo findMemberinfoByName(String name) throws DataAccessException;
 
@@ -85,7 +94,7 @@ public interface IMemberDao {
 	void delSpace(Memberspace space) throws DataAccessException;
 
 	// 随机查找一名好友
-	Memberinfo findFriendRandom() throws DataAccessException;
+	Memberinfo findFriendRandom(int number) throws DataAccessException;
 
 	// 查找所有用户
 	List<Memberinfo> findAllMembers() throws DataAccessException;

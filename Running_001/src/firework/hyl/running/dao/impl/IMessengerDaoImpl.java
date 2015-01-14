@@ -43,13 +43,42 @@ public class IMessengerDaoImpl implements IMessengerDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Memberinfo> findFriends(Long age, String gender, String city)
+	public List<Memberinfo> findFriends(String age, String gender, String city)
 			throws DataAccessException {
-		return this
-				.getSession()
-				.createQuery(
-						"from Memberinfo m where m.age =? or m.gender=? or m.provinceCity=?")
-				.setLong(0, age).setString(1, gender).setString(2, city).list();
+		boolean ageAdded = false;
+		boolean genderAdded = false;
+		boolean cityAdded = false;
+		String hql = "from Memberinfo m where ";
+		if (city != null) {
+			hql = hql + " m.provinceCity=" + city;
+			cityAdded = true;
+		}
+
+		if (gender != null) {
+			if (cityAdded)
+				hql += " and m.gender=" + gender;
+			else
+				hql += "m.gender=" + gender;
+			genderAdded = true;
+		}
+		if (age != null) {
+			long minAge = Long.parseLong(age.trim()) * 10;
+			long maxAge = minAge + 9;
+			if(genderAdded||cityAdded){
+				hql += " and (m.age>" + minAge + " and m.age<" + maxAge + ")";
+			}
+			else{
+				hql += "  (m.age>" + minAge + " and m.age<" + maxAge + ")";
+			}
+			ageAdded = true;
+		}
+		System.out.println("hql:" + hql);
+		if (!ageAdded && !genderAdded && !cityAdded)
+			hql = "from Memberinfo";
+
+		System.out.println("match:" + hql);
+		return this.getSession().createQuery(hql).list();
+
 	}
 
 	@Override

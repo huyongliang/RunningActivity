@@ -24,7 +24,7 @@
 			</li>
 			<li>
 				<div>
-					<img src="images/c.gif" /> <a href="messenger/buddyList.html">我的好友</a>
+					<img src="images/c.gif" /> <a href="messenger/msg-listAll.action">我的好友</a>
 					<p>好友管理及黑名单</p>
 				</div>
 			</li>
