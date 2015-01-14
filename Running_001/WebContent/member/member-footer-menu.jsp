@@ -18,7 +18,7 @@
 			</li>
 			<li>
 				<div>
-					<img src="images/b.gif" /> <a href="messenger/inbox.html">我的信箱</a>
+					<img src="images/b.gif" /> <a href="msg/msg-list-all.action">我的信箱</a>
 					<p>写信息、收件箱、发件箱</p>
 				</div>
 			</li>

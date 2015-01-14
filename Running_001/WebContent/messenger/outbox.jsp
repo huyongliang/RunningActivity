@@ -84,7 +84,7 @@ tfoot tr td {
 				if (confirm("确定删除吗？")==false){
 					return false;
 				}
-				document.forms.outboxForm.action="<%=basePath%>messenger/delReceiveMessage.action";
+				document.forms.outboxForm.action="<%=basePath%>msg/msg-delete.action?cmd=out";
 		document.forms.outboxForm.submit();
 	}
 </script>
@@ -104,13 +104,7 @@ tfoot tr td {
 			<jsp:include page="../member/member-header-menu.jsp"></jsp:include>
 			</div>
 
-			<div id="tabs1">
-				<ul>
-					<li><a href="sendInfo.html" title="写纸条"><span>写纸条</span></a></li>
-					<li><a href="inbox.html" title="收件箱"><span>收件箱</span></a></li>
-					<li><a href="outbox.html" title="发件箱"><span><b>发件箱</b></span></a></li>
-				</ul>
-			</div>
+			<jsp:include page="msgBox-menu.jsp" flush="true"></jsp:include>
 			<br /> <br />
 
 			<div id="content" align="center">
@@ -140,34 +134,18 @@ tfoot tr td {
 											</tr>
 										</thead>
 										<tbody>
+										<s:iterator value="outbox" var="m">
 											<tr>
 												<td width="10%"><input type="checkbox" name="ID"
-													value="219" /></td>
-												<td width="20%"><a href="view.html">你好</a></td>
-												<td width="20%">briup1</td>
-												<td width="30%">2013/07/30 13:34:25</td>
+													value="${m.id}" /></td>
+												<td width="20%"><a href="msg/msg-view.action?ID=${m.id}">${m.title}</a></td>
+												<td width="20%">${m.receiver}</td>
+												<td width="30%">
+													<s:date name="senddate" format="yyyy-MM-dd HH:mm:ss"/>
+												</td>
 											</tr>
-											<tr>
-												<td width="10%"><input type="checkbox" name="ID"
-													value="161" /></td>
-												<td width="20%"><a href="#">你好</a></td>
-												<td width="20%">briup3</td>
-												<td width="30%">2013/07/27 13:10:46</td>
-											</tr>
-											<tr>
-												<td width="10%"><input type="checkbox" name="ID"
-													value="162" /></td>
-												<td width="20%"><a href="#">你好</a></td>
-												<td width="20%">briup3</td>
-												<td width="30%">2013/07/27 13:11:00</td>
-											</tr>
-											<tr>
-												<td width="10%"><input type="checkbox" name="ID"
-													value="163" /></td>
-												<td width="20%"><a href="#">你好</a></td>
-												<td width="20%">briup3</td>
-												<td width="30%">2013/07/27 13:11:31</td>
-											</tr>
+										</s:iterator>
+											
 
 										</tbody>
 

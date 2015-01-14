@@ -39,4 +39,6 @@ public interface IMessengerService {
 	
 	// 通过ID删除发送短息 删除多个
 	void delSendMessage(Long[] id) throws MessengerServiceException;
+	
+	Messagerecord readMsg(long id);
 }

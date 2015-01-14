@@ -86,13 +86,7 @@ caption, tfoot.th {
 				<jsp:include page="../member/member-header-menu.jsp"></jsp:include>
 			</div>
 
-			<div id="tabs1">
-				<ul>
-					<li><a href="sendInfo.html" title="写纸条"><span>写纸条</span></a></li>
-					<li><a href="inbox.html" title="收件箱"><span><b>收件箱</b></span></a></li>
-					<li><a href="outbox.html" title="发件箱"><span>发件箱</span></a></li>
-				</ul>
-			</div>
+			<jsp:include page="msgBox-menu.jsp" flush="true"></jsp:include>
 			<br /> <br />
 
 			<div id="content" align="center">
@@ -112,15 +106,15 @@ caption, tfoot.th {
 							<tbody>
 								<tr>
 									<th class="line1" scope="col" width="20%">发信人</th>
-									<td>briup3</td>
+									<td>${messagerecord.sender}</td>
 								</tr>
 								<tr>
 									<th>主题</th>
-									<td>你好</td>
+									<td>${messagerecord.title}</td>
 								</tr>
 								<tr>
 									<th>消息内容</th>
-									<td>欢迎来到杰普跑步社区！</td>
+									<td>${messagerecord.content}</td>
 								</tr>
 
 							</tbody>
@@ -129,7 +123,7 @@ caption, tfoot.th {
 									<th colspan="2" align="center" classo="line4"
 										style="text-align: center"><input type="button"
 										value="返回"
-										onclick="self.location='messenger/inboxMessage.do'" /></th>
+										onclick="self.location='msg/msg-list-all.action'" /></th>
 								</tr>
 							</tfoot>
 						</table>

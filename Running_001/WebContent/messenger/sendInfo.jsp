@@ -89,14 +89,7 @@ tfoot.tr th {
 				</div>
 				<jsp:include page="../member/member-header-menu.jsp"></jsp:include>
 			</div>
-			<div id="tabs1">
-				<ul>
-					<li><a href="sendInfo.html" title="写纸条"><span><b>写纸条</b></span></a></li>
-					<li><a href="inbox.html" title="收件箱"><span>收件箱</span></a></li>
-					<li><a href="outbox.html" title="发件箱"><span>发件箱</span></a></li>
-				</ul>
-
-			</div>
+			<jsp:include page="msgBox-menu.jsp" flush="true"></jsp:include>
 			<div id="content" align="center">
 				<div id="center">
 					<br /> <br />
@@ -110,14 +103,19 @@ tfoot.tr th {
 						<tr>
 							<td width="100%">
 								<form name="sendInfoForm"
-									action="pages/messenger/sendMessage.do" method="post"
+									action="msg/msg-send.action" method="post"
 									onsubmit="return sendInfo(this);">
 									<table width="100%">
 										<tbody>
 											<tr>
 												<th width="30%" class="line1" scope="col">收信人：</th>
-												<td><input type="text" name="receiver"
-													style="width: 250; height: 25" value="" /></td>
+												<td>
+												<select name="receiver">
+													<option value="select">选择好友</option>
+													<s:iterator value="friendsList" var="m">
+														<option value="${m.nickName}">${m.nickName}</option>
+													</s:iterator>
+												</select>
 											</tr>
 											<tr>
 												<th>主题：</th>

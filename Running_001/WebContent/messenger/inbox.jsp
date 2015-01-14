@@ -84,7 +84,7 @@ tfoot tr td {
 				if (confirm("确定删除吗？")==false){
 					return false;
 				}
-				document.forms.inboxForm.action="<%=basePath%>messenger/delReceiveMessage.action";
+				document.forms.inboxForm.action="<%=basePath%>msg/msg-delete.action?cmd=in";
 				document.forms.inboxForm.submit();	
 			}	
 			function detailMessage(){
@@ -97,7 +97,7 @@ tfoot tr td {
 					alert("对不起，一次只能查看一条信息!");
 					return;
 				}
-				document.forms.inboxForm.action="<%=basePath%>messenger/detailMessage.action";
+				document.forms.inboxForm.action="<%=basePath%>msg/msg/msg-view.action";
 		document.forms.inboxForm.submit();
 	}
 </script>
@@ -117,13 +117,7 @@ tfoot tr td {
 				<jsp:include page="../member/member-header-menu.jsp"></jsp:include>
 			</div>
 
-			<div id="tabs1">
-				<ul>
-					<li><a href="sendInfo.html" title="写纸条"><span>写纸条</span></a></li>
-					<li><a href="inbox.html" title="收件箱"><span><b>收件箱</b></span></a></li>
-					<li><a href="outbox.html" title="发件箱"><span>发件箱</span></a></li>
-				</ul>
-			</div>
+			<jsp:include page="msgBox-menu.jsp" flush="true"></jsp:include>
 			<br /> <br />
 
 			<div id="content" align="center">
@@ -156,41 +150,27 @@ tfoot tr td {
 											</tr>
 										</thead>
 										<tbody>
+										
+										<s:iterator value="inbox" var="m">
 											<tr>
 												<td width="10%"><input type="checkbox" name="ID"
-													value="219" /></td>
-												<td width="20%"><a href="view.html">你好</a></td>
-												<td width="20%">briup1</td>
-												<td width="30%">2013/07/30 13:34:25</td>
-												<td><img src="images/icon10.gif" /></td>
+													value="${m.id}" /></td>
+												<td width="20%"><a href="msg/msg-view.action?ID=${m.id}">${m.title}</a></td>
+												<td width="20%">${m.sender}</td>
+												<td width="30%"><s:date name="senddate" format="yyyy-MM-dd HH:mm:ss"/>
+												</td>
+												<td>
+												<s:if test="status==0">
+													<img src="images/icon09.gif" />
+												</s:if>
+												<s:else>
+													<img src="images/icon10.gif" />
+												</s:else>
+												</td>
 											</tr>
-											<tr>
-												<td width="10%"><input type="checkbox" name="ID"
-													value="161" /></td>
-												<td width="20%"><a
-													href="pages/messenger/detailMessage.do?ID=161">你好</a></td>
-												<td width="20%">briup3</td>
-												<td width="30%">2013/07/27 13:10:46</td>
-												<td><img src="images/icon10.gif" /></td>
-											</tr>
-											<tr>
-												<td width="10%"><input type="checkbox" name="ID"
-													value="162" /></td>
-												<td width="20%"><a
-													href="pages/messenger/detailMessage.do?ID=162">你好</a></td>
-												<td width="20%">briup3</td>
-												<td width="30%">2013/07/27 13:11:00</td>
-												<td><img src="images/icon10.gif" /></td>
-											</tr>
-											<tr>
-												<td width="10%"><input type="checkbox" name="ID"
-													value="163" /></td>
-												<td width="20%"><a
-													href="pages/messenger/detailMessage.do?ID=163">你好</a></td>
-												<td width="20%">briup3</td>
-												<td width="30%">2013/07/27 13:11:31</td>
-												<td><img src="images/icon10.gif" /></td>
-											</tr>
+										</s:iterator>
+											
+											
 
 										</tbody>
 

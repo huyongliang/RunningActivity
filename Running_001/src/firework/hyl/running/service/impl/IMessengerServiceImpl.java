@@ -154,4 +154,17 @@ public class IMessengerServiceImpl implements IMessengerService {
 		}
 	}
 
+	@Transactional
+	@Override
+	public Messagerecord readMsg(long id) {
+		try {
+			Messagerecord messagerecord=this.dao.findMessage(id);
+			messagerecord.setStatus(1l);
+			return messagerecord;
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

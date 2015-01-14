@@ -64,10 +64,9 @@ public class IMessengerDaoImpl implements IMessengerDao {
 		if (age != null) {
 			long minAge = Long.parseLong(age.trim()) * 10;
 			long maxAge = minAge + 9;
-			if(genderAdded||cityAdded){
+			if (genderAdded || cityAdded) {
 				hql += " and (m.age>" + minAge + " and m.age<" + maxAge + ")";
-			}
-			else{
+			} else {
 				hql += "  (m.age>" + minAge + " and m.age<" + maxAge + ")";
 			}
 			ageAdded = true;
@@ -90,8 +89,10 @@ public class IMessengerDaoImpl implements IMessengerDao {
 	@Override
 	public List<Messagerecord> listSendMessage(String senderName)
 			throws DataAccessException {
-		return this.getSession()
-				.createQuery("from Messagerecord m where m.sender=?")
+		return this
+				.getSession()
+				.createQuery(
+						"from Messagerecord m where m.sender=? and m.senderstatus=0")
 				.setString(0, senderName).list();
 	}
 
@@ -99,8 +100,10 @@ public class IMessengerDaoImpl implements IMessengerDao {
 	@Override
 	public List<Messagerecord> listRecieveMessage(String recieveName)
 			throws DataAccessException {
-		return this.getSession()
-				.createQuery("from Messagerecord m where m.receiver=?")
+		return this
+				.getSession()
+				.createQuery(
+						"from Messagerecord m where m.receiver=? and m.receiverstatus=0")
 				.setString(0, recieveName).list();
 	}
 
@@ -112,7 +115,7 @@ public class IMessengerDaoImpl implements IMessengerDao {
 	@Override
 	public void deleteRecieveMessage(Long id) throws DataAccessException {
 		Messagerecord msg = this.findMessage(id);
-		this.getSession().delete(msg);
+		msg.setReceiverstatus(1l);
 	}
 
 	@Override
@@ -123,14 +126,14 @@ public class IMessengerDaoImpl implements IMessengerDao {
 
 	@Override
 	public void deleteSendMessage(Long id) throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		Messagerecord msg = this.findMessage(id);
+		msg.setSenderstatus(1l);
 	}
 
 	@Override
 	public void deleteSendMessage(Long[] id) throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		for (long i : id)
+			this.deleteSendMessage(i);
 	}
 
 }

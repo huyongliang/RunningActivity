@@ -80,11 +80,43 @@
 			<result name="success" type="redirectAction">list-all-black</result>
 			<result name="error">/messenger/buddyList.jsp</result>
 		</action>
-		
+
 		<action name="moveToFriendList" class="moveToFriendListAction">
 			<result name="success" type="redirectAction">msg-listAll</result>
 			<result name="error">/messenger/blackList.jsp</result>
 		</action>
 	</package>
 
+
+	<package name="msg" namespace="/msg" extends="struts-default">
+		<action name="msg-list-all" class="messageListAllAction">
+			<result>/messenger/inbox.jsp</result>
+			<result name="error">/messenger/inbox.jsp</result>
+		</action>
+
+		<action name="msg-find-all-friends" class="findFriendsAction">
+			<result>/messenger/sendInfo.jsp</result>
+			<result name="error">/messenger/sendInfo.jsp</result>
+		</action>
+
+		<action name="msg-list-sended-msg" class="msgListOutBoxAction">
+			<result>/messenger/outbox.jsp</result>
+			<result name="error">/messenger/outbox.jsp</result>
+		</action>
+
+		<action name="msg-send" class="sendMsgAction">
+			<result name="success" type="redirectAction">msg-list-sended-msg</result>
+			<result name="error">/messenger/sendInfo.jsp</result>
+		</action>
+
+		<action name="msg-view" class="msgViewAction">
+			<result name="success">/messenger/view.jsp</result>
+			<result name="error">/messenger/view.jsp</result>
+		</action>
+
+		<action name="msg-delete" class="msgDeleteAction">
+			<result name="inbox" type="redirectAction">msg-list-all</result>
+			<result name="outbox" type="redirectAction">msg-list-sended-msg</result>
+		</action>
+	</package>
 </struts>

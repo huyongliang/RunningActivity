@@ -111,16 +111,23 @@ tfoot tr td {
 											</tr>
 
 											<tr>
-												<th class="line1">${sessionScope.current_user.gender}</th>
-												<td>男</td>
+												<th class="line1">性别</th>
+												<td>
+													<s:if test="#session.current_user.gender==0">
+														男
+													</s:if>
+													<s:else>
+														女
+													</s:else>
+												</td>
 											</tr>
 											<tr>
-												<th class="line1">${sessionScope.current_user.point}</th>
-												<td>56</td>
+												<th class="line1">积分</th>
+												<td>${sessionScope.current_user.point}</td>
 											</tr>
 											<tr>
-												<th class="line1">${sessionScope.current_user.graderecord.gradename}</th>
-												<td>跑步健将</td>
+												<th class="line1">跑步健将</th>
+												<td>${sessionScope.current_user.graderecord.gradename}</td>
 											</tr>
 											<tr>
 												<th class="line1">来自</th>
