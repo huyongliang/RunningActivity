@@ -12,7 +12,7 @@ import firework.hyl.running.common.bean.Pointrecord;
 import firework.hyl.running.common.exception.DataAccessException;
 
 public interface IMemberDao {
-
+	Memberspace findMemberSapceByUserId(Long userId);
 	/**
 	 * 随机查找 memCount 条记录
 	 * 

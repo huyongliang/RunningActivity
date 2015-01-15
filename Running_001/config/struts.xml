@@ -11,6 +11,11 @@
 
 	<package name="member" namespace="/member" extends="struts-default">
 
+		<action name="show_space" class="showSpaceAction">
+			<result name="success">/member/show_space.jsp</result>
+			<result name="no_space" type="redirectAction">after-login</result>
+		</action>
+
 		<action name="member-logout" class="logoutAction">
 			<result>/login.jsp</result>
 		</action>

@@ -149,7 +149,7 @@ tfoot tr td {
 													<td width="20%" align="center"><s:if
 															test="m.gender==0">男</s:if> <s:else>女</s:else></td>
 													<td width="20%" align="center">${m.age}</td>
-													<td width="20%" align="center">${m.provinceCity}</td>
+													<td width="20%" align="center">${m.getCityString()}</td>
 													<td width="10%" align="center"><img
 														src="images/button_delete.gif" alt="移动到好友名单"
 														onclick="window.location='messenger/moveToFriendList.action?blackName=${m.nickName}'"

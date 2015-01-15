@@ -158,9 +158,15 @@ tfoot tr td {
 								<s:iterator value="randomList" var="m">
 									<tr height="25">
 										<td width="15%" align="center">${m.nickName}</td>
-										<td width="15%" align="center">${m.gender}</td>
 										<td width="15%" align="center">${m.age}</td>
-										<td width="15%" align="center">${m.provinceCity}</td>
+										<td width="15%" align="center">
+										<s:if test="gender==0">男</s:if>
+										<s:else>女</s:else>
+										</td>
+										<td width="15%" align="center">
+										${m.getCityString()}
+										
+										</td>
 										<td width="20%" align="center"><a
 											href="messenger/add-friend.action?friendName=${m.nickName}" >添加好友</a></td>
 										<td width="20%" align="center"><a href="#">发送短信</a></td>

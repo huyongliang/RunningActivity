@@ -11,6 +11,7 @@ import firework.hyl.running.common.bean.Pointrecord;
 import firework.hyl.running.common.exception.MemberServiceException;
 
 public interface IMemberService {
+	Memberspace findMemberSapceByUserId(Long userId);
 	// 用户注册
 	void registerMemberinfo(Memberinfo memberinfo) throws MemberServiceException;
 	

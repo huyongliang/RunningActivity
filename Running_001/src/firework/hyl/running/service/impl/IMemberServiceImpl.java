@@ -65,10 +65,15 @@ public class IMemberServiceImpl implements IMemberService {
 		}
 	}
 
+	@Transactional
 	@Override
 	public Memberinfo findMemberinfoByName(String nickname)
 			throws MemberServiceException {
-		// TODO Auto-generated method stub
+		try {
+			return this.dao.findMemberinfoByName(nickname);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -116,7 +121,7 @@ public class IMemberServiceImpl implements IMemberService {
 	public List<Memberinfo> findMemberinfoByNum(int number)
 			throws MemberServiceException {
 		try {
-			return this.dao.findNMemberRandom(number);
+			return this.dao.findMemberinfoByNum(number);
 			// return this.dao.findMemberinfoByNum(number);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
@@ -433,5 +438,11 @@ public class IMemberServiceImpl implements IMemberService {
 		}
 
 		return false;
+	}
+
+	@Transactional
+	@Override
+	public Memberspace findMemberSapceByUserId(Long userId) {
+		return this.dao.findMemberSapceByUserId(userId);
 	}
 }

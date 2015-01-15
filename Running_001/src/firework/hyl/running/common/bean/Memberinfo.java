@@ -306,4 +306,9 @@ public class Memberinfo implements java.io.Serializable {
 			return false;
 		return true;
 	}
+
+	public String getCityString() {
+		return firework.hyl.running.common.util.Util
+				.getProvinceNameById(this.provinceCity);
+	}
 }

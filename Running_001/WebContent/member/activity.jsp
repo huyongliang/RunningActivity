@@ -34,7 +34,7 @@
 				<jsp:include page="logout.jsp" flush="true"></jsp:include>
 				<div id="mainnav">
 					<ul>
-						<li class="current"><a href="member/activity.jsp">首页</a></li>
+						<li class="current"><a href="member/after-login.action">首页</a></li>
 						<li><a href="other/musicrun.html">音乐跑不停</a></li>
 						<li><a href="other/equip.html">跑步装备库</a></li>
 						<li><a href="other/guide.html">专业跑步指南</a></li>
@@ -47,7 +47,7 @@
 										name="#session.current_user.latestdate"
 										format="yyyy-MM-dd HH:mm:ss" />
 								</td>
-								<td align="center">欢迎，&nbsp; <a href="isCreateSpace.action"><font
+								<td align="center">欢迎，&nbsp; <a href="member/member-gotoSpace.action"><font
 										color="red"> [<s:property
 												value="#session.current_user.nickName" />]
 									</font> </a>&nbsp;
@@ -148,8 +148,14 @@
 					</div>
 					<h2>积分排行榜</h2>
 					<ul>
+					<script type="text/javascript">
+						if ("${spaceMsg}" != null
+								&& "${spaceMsg}" != "")
+							alert("${spaceMsg}");
+					</script>
+					
 					<s:iterator value="top10Members">
-						<li><a href="#">${nickName}</a></li>
+						<li><a href="member/show_space.action?nickName=${nickName}&memberId=${id}">${nickName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${point}</a></li>
 					</s:iterator>
 						
 					</ul>

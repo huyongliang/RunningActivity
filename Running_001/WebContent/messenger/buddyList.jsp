@@ -155,7 +155,7 @@ tfoot tr td {
 													<td width="20%" align="center"><s:if
 															test="f.age==0">男</s:if> <s:else>女</s:else></td>
 													<td width="20%" align="center">${f.age}</td>
-													<td width="20%" align="center">${f.provinceCity}</td>
+													<td width="20%" align="center">${f.getCityString()}</td>
 													<td width="10%" align="center"><img
 														src="images/button_delete.gif" alt="移动到黑名单"
 														onclick="window.location='messenger/moveToBlackList.action?blackName=${f.nickName}'"

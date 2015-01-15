@@ -2,9 +2,7 @@ package firework.hyl.running.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,12 +58,13 @@ public class MemberDaoImpl implements IMemberDao {
 	@Override
 	public List<Memberinfo> findMemberinfoByNum(int number)
 			throws DataAccessException {
-		Query query = this.getSession().createQuery(
-				"from Memberinfo m order by m.point desc");
-		query.setMaxResults(number);
-		query.setFirstResult(0);
-
-		return query.list();
+		List<Memberinfo> list = this.getSession()
+				.createQuery("from Memberinfo m order by m.point desc").list();
+		if (list == null)
+			return new ArrayList<>(0);
+		if (list.size() > 10)
+			return list.subList(0, 10);
+		return list;
 	}
 
 	@Override
@@ -250,5 +249,12 @@ public class MemberDaoImpl implements IMemberDao {
 				.list();
 
 		return ret;
+	}
+
+	@Override
+	public Memberspace findMemberSapceByUserId(Long userId) {
+		return (Memberspace) this.getSession()
+				.createQuery("from Memberspace m where m.memberinfo.id = ?")
+				.setLong(0, userId).uniqueResult();
 	}
 }
