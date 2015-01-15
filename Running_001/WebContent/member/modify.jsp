@@ -16,6 +16,7 @@
 <link rel="stylesheet" type="text/css" id="css" href="style/main.css" />
 <link rel="stylesheet" type="text/css" id="css" href="style/style1.css" />
 <script src="js/main.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <style type="text/css">
 <!--
 table {
@@ -82,9 +83,7 @@ tfoot tr td {
 				<div id="logo">
 					<h1>跑步社区</h1>
 				</div>
-				<div id="logout">
-					<a href="login.html">注 销</a> | 收 藏
-				</div>
+				<jsp:include page="logout.jsp" flush="true"></jsp:include>
 				<jsp:include page="member-header-menu.jsp" flush="true"></jsp:include>
 			</div>
 			<script type="text/javascript">
@@ -214,7 +213,12 @@ tfoot tr td {
 												<th class="line1">
 													<div align="right">所在省份/城市：</div>
 												</th>
-												<td><select name="memberinfo.provinceCity">
+												<script type="text/javascript">
+												$(function(){
+													$("#cityID_auto").val("${sessionScope.current_user.provinceCity}");
+												});
+												</script>
+												<td><select name="memberinfo.provinceCity" id="cityID_auto" >
 														<option value="0" selected="selected">请选择</option>
 														<option value="1">北京</option>
 														<option value="2">上海</option>
@@ -250,8 +254,11 @@ tfoot tr td {
 														<option value="32">港澳台</option>
 														<option value="33">海外</option>
 														<option value="34">其它</option>
-												</select></td>
-												<th>${sessionScope.current_user.provinceCity}</th>
+												</select>
+												</td>
+												<th>
+													&nbsp;
+												</th>
 											</tr>
 											<tr>
 												<th class="line1">

@@ -14,8 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>杰普――跑步社区</title>
 <link rel="stylesheet" type="text/css" id="css" href="style/main.css" />
-<link rel="stylesheet" type="text/css" id="css"
-	href="style/style1.css" />
+<link rel="stylesheet" type="text/css" id="css" href="style/style1.css" />
 <script src="js/main.js" type="text/javascript"></script>
 
 <style type="text/css">
@@ -80,9 +79,7 @@ caption, tfoot.th {
 				<div id="logo">
 					<h1>跑步社区</h1>
 				</div>
-				<div id="logout">
-					<a href="login.html">注 销</a> | 收 藏
-				</div>
+				<jsp:include page="../member/logout.jsp" flush="true"></jsp:include>
 				<jsp:include page="../member/member-header-menu.jsp"></jsp:include>
 			</div>
 
@@ -122,8 +119,7 @@ caption, tfoot.th {
 								<tr>
 									<th colspan="2" align="center" classo="line4"
 										style="text-align: center"><input type="button"
-										value="返回"
-										onclick="self.location='msg/msg-list-all.action'" /></th>
+										value="返回" onclick="self.location='msg/msg-list-all.action'" /></th>
 								</tr>
 							</tfoot>
 						</table>

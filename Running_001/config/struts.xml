@@ -11,6 +11,9 @@
 
 	<package name="member" namespace="/member" extends="struts-default">
 
+		<action name="member-logout" class="logoutAction">
+			<result>/login.jsp</result>
+		</action>
 		<action name="member-register" class="memberRegisterAction">
 			<result name="success">/login.jsp</result>
 			<result name="error">/register.jsp</result>
@@ -37,6 +40,7 @@
 
 		<action name="checkAutoLogin" class="memberCheckAutoLoginAction">
 			<result name="success" type="redirectAction">member-login</result>
+			<result name="general_login_action">/login.jsp</result>
 		</action>
 
 

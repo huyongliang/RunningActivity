@@ -31,9 +31,7 @@
 				<div id="logo">
 					<h1>跑步社区</h1>
 				</div>
-				<div id="logout">
-					<a href="login.jsp">注 销</a> | 收 藏
-				</div>
+				<jsp:include page="logout.jsp" flush="true"></jsp:include>
 				<div id="mainnav">
 					<ul>
 						<li class="current"><a href="member/activity.jsp">首页</a></li>
@@ -126,7 +124,7 @@
 						</tr>
 						<tr>
 							<td align="left">您是本社区的第10位来访者</td>
-							<td align="left"><font color="green"><b>在线人数：2</b></font></td>
+							<td align="left"><font color="green"><b>在线人数：${onlineUserNumber}</b></font></td>
 						</tr>
 
 					</table>

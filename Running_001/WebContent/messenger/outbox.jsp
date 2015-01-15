@@ -98,9 +98,7 @@ tfoot tr td {
 				<div id="logo">
 					<h1>跑步社区</h1>
 				</div>
-				<div id="logout">
-					<a href="login.html">注 销</a> | 收 藏
-				</div>
+				<jsp:include page="../member/logout.jsp" flush="true"></jsp:include>
 			<jsp:include page="../member/member-header-menu.jsp"></jsp:include>
 			</div>
 

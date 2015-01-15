@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -21,6 +20,7 @@ import firework.hyl.running.common.bean.Memberinfo;
 import firework.hyl.running.common.bean.Memberspace;
 import firework.hyl.running.common.util.FileUtils;
 import firework.hyl.running.common.util.GloobalProperties;
+import firework.hyl.running.dao.impl.MemberDaoImpl;
 import firework.hyl.running.service.IMemberService;
 
 @Controller("memCreateSpaceAction")
@@ -45,54 +45,61 @@ public class MemCreateSpaceAction extends ActionSupport implements SessionAware 
 	private Memberspace space;
 	private Memberinfo info;
 
+	private String cmd;
+
 	@Override
 	public String execute() throws Exception {
 		this.info = (Memberinfo) this.session
 				.get(GloobalProperties.CURRENT_USER);
-		// FileUtils.makeDir(this.filePathOnDisk);
-		String realpath = ServletActionContext.getServletContext().getRealPath(
-				"/UserHeader");
-		System.out.println("real:" + realpath);
-		this.buildSpaceEntity();
-		String newName = uploadFile(realpath);
-
-		this.space.setIcon(realpath + File.separator + newName);
-
-		this.memberService.saveSpace(info, space);
-		return super.execute();
-	}
-
-	protected String uploadFile(String realpath) throws FileNotFoundException,
-			IOException {
-		System.out.println("space:" + this.space);
-		System.out.println(this.iconContentType);
-		System.out.println(this.icon.getName());
+		String baseDir = GloobalProperties.get("user.header.dir");
+		FileUtils.makeDir(baseDir);
+		System.out.println("base:" + baseDir);
 		String newName = FileUtils.getTimeStamp()
 				+ FileUtils.getExtName(iconFileName, true);
-		System.out.println("enw:" + newName);
+		System.out.println("newName:" + newName);
 
-		byte[] buffer = new byte[2048];
-		int length = 0;
-		InputStream is = new FileInputStream(icon);
-
-		OutputStream os = new FileOutputStream(new File(realpath, newName));
-		while ((length = is.read(buffer)) != -1) {
-			os.write(buffer, 0, length);
+		String diskPath = baseDir + newName;
+		System.out.println("disk:" + diskPath);
+		if (this.memberService.haveMemberSpace(info.getNickName())) {// update space
+			this.memberService.delSpace(info.getMemberSpace().getId());
+			System.out.println("update:");
 		}
-		os.close();
-		is.close();
-		return newName;
-	}
+		System.out.println("create:");
+		this.uploadHeader(diskPath);
 
-	protected void buildSpaceEntity() {
 		this.space = new Memberspace();
 		this.space.setCellphone(cellphone);
-		this.space.setIcon(iconFileName);
+		this.space.setIcon(diskPath);
+		this.space.setMemberinfo(info);
 		this.space.setOpinion(opinion);
 		this.space.setRunhabit(runhabit);
 		this.space.setRunplace(runplace);
 		this.space.setRunstar(runstar);
 		this.space.setRuntime(runtime);
+
+		this.memberService.saveSpace(info, space);
+
+		this.updateSession();
+		return SUCCESS;
+	}
+
+	protected void uploadHeader(String diskPath) throws FileNotFoundException,
+			IOException {
+		InputStream in = new FileInputStream(icon);
+		OutputStream out = new FileOutputStream(new File(diskPath));
+		int len = 0;
+		byte[] buffer = new byte[1024];
+		while ((len = in.read(buffer)) != -1) {
+			out.write(buffer, 0, len);
+		}
+		in.close();
+		out.close();
+	}
+
+	private void updateSession() {
+		this.info.setMemberSpace(space);
+		session.put(GloobalProperties.CURRENT_USER, info);
+		System.out.println(info.getMemberSpace().getIcon());
 	}
 
 	public String getOpinion() {
@@ -170,5 +177,9 @@ public class MemCreateSpaceAction extends ActionSupport implements SessionAware 
 	@Override
 	public void setSession(Map<String, Object> arg0) {
 		this.session = arg0;
+	}
+
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
 	}
 }

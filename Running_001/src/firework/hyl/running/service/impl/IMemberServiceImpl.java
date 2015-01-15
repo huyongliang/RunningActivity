@@ -49,6 +49,14 @@ public class IMemberServiceImpl implements IMemberService {
 			this.dao.saveOrUpdateMemberinfo(memberinfo);
 
 			this.addPoint("REGISTER", memberinfo, this.dao);
+			if (memberinfo.getRecommender() != null) {
+				Memberinfo in = this.dao.findMemberinfoByName(memberinfo
+						.getRecommender());
+				if (in == null)
+					throw new MemberServiceException("推荐人【"
+							+ memberinfo.getRecommender() + "】不存在");
+				this.addPoint("RECOMMEND", in, dao);
+			}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			throw new MemberServiceException(e.getMessage());
@@ -91,10 +99,16 @@ public class IMemberServiceImpl implements IMemberService {
 		return ret;
 	}
 
+	@Transactional
 	@Override
 	public void logout(String nickname) throws MemberServiceException {
-		// TODO Auto-generated method stub
-
+		try {
+			Memberinfo memberinfo = this.dao.findMemberinfoByName(nickname);
+			memberinfo.setIsonline(0l);
+			this.dao.saveOrUpdateMemberinfo(memberinfo);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Transactional
@@ -324,10 +338,16 @@ public class IMemberServiceImpl implements IMemberService {
 		}
 	}
 
+	@Transactional
 	@Override
 	public void delSpace(Long id) throws MemberServiceException {
-		// TODO Auto-generated method stub
-
+		Memberspace memberspace = new Memberspace();
+		memberspace.setId(id);
+		try {
+			this.dao.delSpace(memberspace);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -357,10 +377,14 @@ public class IMemberServiceImpl implements IMemberService {
 		try {
 			Memberinfo temp = this.dao.findMemberinfoByName(memberinfo
 					.getNickName());
+			// temp.setPoint(temp.get);
+			this.addPoint("CREATEPERSONALSPACE", temp, dao);
 			ms.setMemberinfo(temp);
 			temp.setMemberSpace(ms);
 			this.dao.saveOrUpdateMemberinfo(temp);
 		} catch (DataAccessException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

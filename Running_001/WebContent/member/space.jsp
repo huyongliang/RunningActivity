@@ -81,9 +81,7 @@ tfoot tr td {
 				<div id="logo">
 					<h1>跑步社区</h1>
 				</div>
-				<div id="logout">
-					<a href="login.html">注 销</a> | 收 藏
-				</div>
+				<jsp:include page="logout.jsp" flush="true"></jsp:include>
 				<jsp:include page="member-header-menu.jsp" flush="true"></jsp:include>
 			</div>
 
@@ -142,9 +140,9 @@ tfoot tr td {
 										<tfoot>
 											<tr>
 												<td colspan="3"><input type="button" value="修改"
-													onclick="location.href='createSpace.html';"
+													onclick="location.href='member/createSpace.jsp?cmd=update';"
 													style="width: 60; height: 25" /> <input type="button"
-													value="返回" onclick="location.href='activity.html' ;"
+													value="返回" onclick="location.href='member/after-login.action' ;"
 													style="width: 60; height: 25" /></td>
 											</tr>
 										</tfoot>

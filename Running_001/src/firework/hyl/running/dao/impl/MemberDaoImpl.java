@@ -120,7 +120,7 @@ public class MemberDaoImpl implements IMemberDao {
 		List<Friendrecord> rec = this.getSession()
 				.createQuery("from Friendrecord f where f.selfname =?")
 				.setString(0, selfname).list();
-		if(rec==null||rec.size()==0)
+		if (rec == null || rec.size() == 0)
 			return new ArrayList<>(0);
 		StringBuilder hql = new StringBuilder(
 				"from Memberinfo m where m.nickName in (");
@@ -138,8 +138,8 @@ public class MemberDaoImpl implements IMemberDao {
 		List<Blackrecord> rec = this.getSession()
 				.createQuery("from Blackrecord f where f.selfname =?")
 				.setString(0, selfname).list();
-		System.out.println("size:"+rec.size());
-		if(rec==null||rec.size()==0){
+		System.out.println("size:" + rec.size());
+		if (rec == null || rec.size() == 0) {
 			return new ArrayList<>(0);
 		}
 		StringBuilder hql = new StringBuilder(
@@ -223,7 +223,8 @@ public class MemberDaoImpl implements IMemberDao {
 
 	@Override
 	public void delSpace(Memberspace space) throws DataAccessException {
-		this.getSession().delete(space);
+		this.getSession().createQuery("delete from Memberspace m where m.id=?")
+				.setLong(0, space.getId()).executeUpdate();
 	}
 
 	@Override

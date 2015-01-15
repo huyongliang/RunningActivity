@@ -1,6 +1,7 @@
 package firework.hyl.running.web.action.news;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
@@ -12,7 +13,9 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import firework.hyl.running.common.bean.Memberinfo;
 import firework.hyl.running.common.bean.Messagerecord;
+import firework.hyl.running.common.exception.MemberServiceException;
 import firework.hyl.running.common.util.GloobalProperties;
+import firework.hyl.running.service.IMemberService;
 import firework.hyl.running.service.IMessengerService;
 
 @Controller("sendMsgAction")
@@ -24,6 +27,8 @@ public class SendMsgAction extends ActionSupport implements SessionAware {
 
 	@Autowired
 	private IMessengerService messengerService;
+	@Autowired
+	private IMemberService memberService;
 
 	private Memberinfo memberinfo;
 	private Map<String, Object> session;
@@ -46,6 +51,10 @@ public class SendMsgAction extends ActionSupport implements SessionAware {
 			message.setSenderstatus(0l);
 			message.setStatus(0l);
 			message.setReceiverstatus(0l);
+			if (this.memberinfo.getNickName().equals(message.getReceiver())) {
+				throw new MemberServiceException("你在自言自语吗？");
+			}
+
 			this.messengerService.saveMessage(message);
 		} catch (Exception e) {
 			e.printStackTrace();

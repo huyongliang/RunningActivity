@@ -27,16 +27,19 @@ public class MemberAfterLoginAction extends ActionSupport implements
 	private IMemberService memberService;
 	private List<Memberinfo> top10Members;
 	private Long newMessageNum;
+	private Long onlineUserNumber;
 	private Map<String, Object> session;
 
 	@Override
 	public String execute() throws Exception {
 		this.top10Members = this.memberService.findMemberinfoByNum(10);
-		System.out.println("m:"+this.top10Members);
+		System.out.println("m:" + this.top10Members);
 		Memberinfo memberinfo = (Memberinfo) this.session
 				.get(GloobalProperties.CURRENT_USER);
+		this.session.put(GloobalProperties.CURRENT_USER, memberinfo);
 		String nickname = memberinfo.getNickName();
 		this.newMessageNum = this.messengerService.findNewMessageNum(nickname);
+		this.onlineUserNumber = this.memberService.findMemberinfoOnline();
 		return SUCCESS;
 	}
 
@@ -59,5 +62,13 @@ public class MemberAfterLoginAction extends ActionSupport implements
 	@Override
 	public void setSession(Map<String, Object> arg0) {
 		this.session = arg0;
+	}
+
+	public Long getOnlineUserNumber() {
+		return onlineUserNumber;
+	}
+
+	public void setOnlineUserNumber(Long onlineUserNumber) {
+		this.onlineUserNumber = onlineUserNumber;
 	}
 }

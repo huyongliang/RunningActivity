@@ -32,7 +32,7 @@ public class Memberinfo implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mem_info_seq")
 	private Long id;
 	// 当前用户的等级
-	@ManyToOne(cascade = { CascadeType.MERGE })
+	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "gradeid")
 	private Graderecord graderecord;
 	// 用户的个人空间
@@ -279,5 +279,31 @@ public class Memberinfo implements java.io.Serializable {
 				+ ", registerdate=" + registerdate + ", latestdate="
 				+ latestdate + ", status=" + status + ", isonline=" + isonline
 				+ "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((nickName == null) ? 0 : nickName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Memberinfo other = (Memberinfo) obj;
+		if (nickName == null) {
+			if (other.nickName != null)
+				return false;
+		} else if (!nickName.equals(other.nickName))
+			return false;
+		return true;
 	}
 }

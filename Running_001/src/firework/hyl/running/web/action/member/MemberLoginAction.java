@@ -1,5 +1,8 @@
 package firework.hyl.running.web.action.member;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +44,7 @@ public class MemberLoginAction extends ActionSupport implements
 	public String execute() throws Exception {
 		Memberinfo meminfo = null;
 		try {
-			System.out.println("auto:"+this.autoLogin);
+			System.out.println("auto:" + this.autoLogin);
 			if (this.isThisTimeAutoLogin()) {// auto login action
 				this.username = (String) this.session
 						.getAttribute(GloobalProperties.COOKIE_USER_NAME);
@@ -66,6 +69,8 @@ public class MemberLoginAction extends ActionSupport implements
 			if (this.isNextTimeAutoLogin()) {
 				this.updateClientCookie();
 				System.out.println("下次自动。。。");
+			} else {
+				this.invalidateClientCookie();
 			}
 		} catch (MemberServiceException e) {
 			this.msg = e.getMessage();
@@ -74,12 +79,26 @@ public class MemberLoginAction extends ActionSupport implements
 		return SUCCESS;
 	}
 
-	private void updateClientCookie() {
+	private void invalidateClientCookie() throws UnsupportedEncodingException {
 		Cookie userNameCookie = new Cookie(GloobalProperties.COOKIE_USER_NAME,
-				this.username);
+				URLEncoder.encode(this.username, "UTF-8"));
+		userNameCookie.setMaxAge(0);
+		Cookie passwordCookie = new Cookie(
+				GloobalProperties.COOKIE_USER_PASSWORD, URLEncoder.encode(
+						this.password, "UTF-8"));
+		passwordCookie.setMaxAge(0);
+
+		this.response.addCookie(userNameCookie);
+		this.response.addCookie(passwordCookie);
+	}
+
+	private void updateClientCookie() throws UnsupportedEncodingException {
+		Cookie userNameCookie = new Cookie(GloobalProperties.COOKIE_USER_NAME,
+				URLEncoder.encode(this.username, "UTF-8"));
 		userNameCookie.setMaxAge(60 * 60 * 24 * 7);// 一周
 		Cookie passwordCookie = new Cookie(
-				GloobalProperties.COOKIE_USER_PASSWORD, this.password);
+				GloobalProperties.COOKIE_USER_PASSWORD, URLEncoder.encode(
+						this.password, "UTF-8"));
 		passwordCookie.setMaxAge(60 * 60 * 24 * 7);
 
 		this.response.addCookie(userNameCookie);

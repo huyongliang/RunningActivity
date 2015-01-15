@@ -26,9 +26,7 @@
 				<div id="logo">
 					<h1>跑步社区</h1>
 				</div>
-				<div id="logout">
-					<a href="login.html">注 销</a> | 收 藏
-				</div>
+				<jsp:include page="logout.jsp" flush="true"></jsp:include>
 				<jsp:include page="member-header-menu.jsp" flush="true"></jsp:include>
 			</div>
 
@@ -71,7 +69,7 @@
 										</td>
 									</tr>
 								</table>
-								<form action="member/member-createSpace.action" method="post"
+								<form action="member/member-createSpace.action?cmd=<%=request.getParameter("cmd")!=null?"":"update" %>" method="post"
 									enctype="multipart/form-data">
 									<table width="100%" border="0" style="margin: 5px 0;"
 										cellspacing="2" cellpadding="0" align="center">

@@ -39,7 +39,7 @@
 					<h1>跑步社区</h1>
 				</div>
 				<div id="logout">
-					<a href="login.html">注 销</a> | 收 藏
+					<a href="member/member-logout.action">注 销</a> | 收 藏
 				</div>
 				<div id="mainnav">
 					<ul>
